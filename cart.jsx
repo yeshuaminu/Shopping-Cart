@@ -193,8 +193,8 @@ const Products = (props) => {
           <Accordion defaultActiveKey="0">{cartList}</Accordion>
         </Col>
         <Col>
-          <h1>CheckOut </h1>
-          <Button onClick={checkOut}>CheckOut $ {finalList().total}</Button>
+          <h1>Check Out </h1>
+          <Button onClick={checkOut}>Check Out $ {finalList().total}</Button>
           <div> {finalList().total > 0 && finalList().final} </div>
         </Col>
       </Row>
