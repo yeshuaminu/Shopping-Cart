@@ -99,27 +99,24 @@ const Products = (props) => {
   );
   console.log(`Rendering Products ${JSON.stringify(data)}`);
   // Fetch Data
-  const addToCart = (e) => {
-    let name = e.target.name;
-    let item = items.filter((item) => item.name == name);
-    if (item[0].instock < 1){
+  const addToCart = (index) => {
+    //let name = e.target.name;
+    //let item = items.filter((item) => item.name == name);
+    const item = items[index]
+    if (item.instock < 1){
       return
     }
     console.log(`add to Cart ${JSON.stringify(item)}`);
-    setCart([...cart, ...item]);
-    setItems(items.map((item) => {
-      console.log(name,item)
-      if(item.name === name){
-      return {
-      ...item,
-      instock: item.instock - 1
-      }
-      }
-      return item;
-    }))
+    setCart([...cart, item]);
+    item.instock--
+    setItems(items)
     //doFetch(query);
   };
   const deleteCartItem = (index) => {
+    const cartItem = cart[index]
+    const stockItem = items.find((item) => {return item.name === cartItem.name})
+    stockItem.instock++
+    setItems(items)
     let newCart = cart.filter((item, i) => index != i);
     setCart(newCart);
   };
@@ -135,7 +132,7 @@ const Products = (props) => {
         <Button variant="primary" size="large">
           {item.name}: ${item.cost} : Stock: {item.instock}
         </Button>
-        <input name={item.name} type="submit" onClick={addToCart}></input>
+        <input name={item.name} type="submit" onClick={()=>{addToCart(index)}}></input>
       </li>
     );
   });
